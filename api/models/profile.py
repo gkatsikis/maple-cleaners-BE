@@ -7,6 +7,8 @@ class Profile(db.Model):
     name = db.Column(db.String(100), nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
+    balance = db.Column(db.Float, default=0.00)
+    
 
     def serialize(self):
       profile = {c.name: getattr(self, c.name) for c in self.__table__.columns}
