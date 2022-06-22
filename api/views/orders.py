@@ -16,3 +16,9 @@ def create():
   db.session.add(order)
   db.session.commit()
   return jsonify(order.serialize()), 201
+
+@orders.route('/', methods=["GET"])
+@login_required
+def get_all():
+  orders = Order.query.all()
+  return jsonify([order.serialize() for order in orders]), 200
