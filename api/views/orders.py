@@ -22,3 +22,10 @@ def create():
 def get_all():
   orders = Order.query.all()
   return jsonify([order.serialize() for order in orders]), 200
+
+@orders.route('/<id>', methods=["GET"])
+@login_required
+def get_one(id):
+  order = Order.query.filter_by(id=id).first()
+  order_data = order.serialize()
+  return jsonify(order=order_data), 200
