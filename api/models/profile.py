@@ -9,6 +9,7 @@ class Profile(db.Model):
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
     balance = db.Column(db.Float, default=0.00)
     
+    orders = db.relationship('Order', backref='profile', lazy=True)
 
     def serialize(self):
       profile = {c.name: getattr(self, c.name) for c in self.__table__.columns}
