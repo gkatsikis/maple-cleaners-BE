@@ -29,3 +29,32 @@ def get_one(id):
   order = Order.query.filter_by(id=id).first()
   order_data = order.serialize()
   return jsonify(order=order_data), 200
+
+@orders.route('/<id>', methods=["PUT"])
+@login_required
+def update(id):
+  data = request.get_json()
+  profile = read_token(request)
+  order = Order.query.filter_by(id=id).first()
+
+  if order.profile_id != profile["id"]:
+    return 'Forbidden', 403
+
+  for key in data:
+    setattr(order, key, data[key])
+
+  db.session.commit()
+  return jsonify(order.serialize()), 200
+
+@orders.route('/<id>', methods=["DELETE"])
+@login_required
+def delete(id):
+  profile = read_token(request)
+  order = Order.query.filter_by(id=id).first()
+
+  if order.profile_id != profile["id"]:
+    return 'Forbidden', 403
+
+  db.session.delete(order)
+  db.session.commit()
+  return jsonify(message="Success"), 200
