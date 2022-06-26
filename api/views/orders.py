@@ -1,5 +1,5 @@
 from flask import Blueprint, jsonify, request
-from api.middleware import login_required, read_token
+from api.middleware import login_required, read_token, admin_required
 
 from api.models.db import db 
 from api.models.order import Order
@@ -7,8 +7,8 @@ from api.models.order import Order
 orders = Blueprint('orders', 'orders')
 
 @orders.route('/', methods=["POST"])
-@login_required
-def create():
+@admin_required
+def create_order():
   data = request.get_json()
   profile = read_token(request)
   data["profile_id"] = profile["id"]
@@ -19,20 +19,20 @@ def create():
 
 @orders.route('/', methods=["GET"])
 @login_required
-def get_all():
+def get_all_orders():
   orders = Order.query.all()
   return jsonify([order.serialize() for order in orders]), 200
 
 @orders.route('/<id>', methods=["GET"])
 @login_required
-def get_one(id):
+def get_one_order(id):
   order = Order.query.filter_by(id=id).first()
   order_data = order.serialize()
   return jsonify(order=order_data), 200
 
 @orders.route('/<id>', methods=["PUT"])
 @login_required
-def update(id):
+def update_order(id):
   data = request.get_json()
   profile = read_token(request)
   order = Order.query.filter_by(id=id).first()
@@ -48,7 +48,7 @@ def update(id):
 
 @orders.route('/<id>', methods=["DELETE"])
 @login_required
-def delete(id):
+def delete_order(id):
   profile = read_token(request)
   order = Order.query.filter_by(id=id).first()
 
