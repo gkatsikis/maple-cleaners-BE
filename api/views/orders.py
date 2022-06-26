@@ -1,5 +1,5 @@
 from flask import Blueprint, jsonify, request
-from api.middleware import login_required, read_token, admin_required
+from api.middleware import login_required, read_token
 
 from api.models.db import db 
 from api.models.order import Order
@@ -7,7 +7,7 @@ from api.models.order import Order
 orders = Blueprint('orders', 'orders')
 
 @orders.route('/', methods=["POST"])
-@admin_required
+@login_required
 def create_order():
   data = request.get_json()
   profile = read_token(request)
@@ -58,3 +58,4 @@ def delete_order(id):
   db.session.delete(order)
   db.session.commit()
   return jsonify(message="Success"), 200
+
