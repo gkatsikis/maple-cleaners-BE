@@ -22,7 +22,6 @@ def admin_required(f):
   @wraps(f)
   def decorated_function(*args, **kwargs):
     token = request.headers['Authorization'].split(' ')[1]
-    print('this is  the token  i guess', token)
     if token != 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJuYW1lIjoiYWRtaW4iLCJpZCI6NH0.h6LJTbyFaXLI6nD51jYh1OHE6YsIKnvWPa_5KwKWWKM':
       return 'Admin Access Only'
     return f(*args, **kwargs)
