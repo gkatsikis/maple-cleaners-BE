@@ -19,7 +19,7 @@ def get_one_profile(id):
   profile_data = profile.serialize()
   return jsonify(profile=profile_data), 200
 
-@profiles.route('/id>', methods=["GET"]) # One for users
+@profiles.route('/<id>', methods=["GET"]) # One for users
 @login_required
 def get_my_profile(id):
   profile = Profile.query.filter_by(id=id).first()
