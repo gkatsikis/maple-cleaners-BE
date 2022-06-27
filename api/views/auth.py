@@ -48,8 +48,9 @@ def login():
 
   if user and compare_password(data['password'], user.password):
     profile = user.profile.serialize()
-    payload = { "name": profile["name"], "id": profile["id"] }
-
+    emailaddress = user.email
+    payload = { "name": profile["name"], "id": profile["id"], "email": emailaddress }
+    print('this is payload', payload)
     token = create_token(payload)
     return jsonify(profile=payload, token=token), 200
 
