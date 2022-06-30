@@ -7,6 +7,7 @@ class User(db.Model):
     email = db.Column(db.String, nullable=False, unique=True)
     password = db.Column(db.String(100), nullable=False)
     profile = db.relationship("Profile", cascade='all', uselist=False)
+    role = db.Column(db.String, default='customer')
     created_at = db.Column(db.DateTime, default=datetime.utcnow, nullable=False)
 
     def serialize(self):
