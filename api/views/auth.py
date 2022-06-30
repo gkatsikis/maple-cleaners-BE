@@ -29,7 +29,7 @@ def register():
   db.session.commit()
 
   new_user = User.query.filter_by(email=data["email"]).first()
-  profile_data = { "name": data["name"], "user_id": new_user.id }
+  profile_data = { "name": data["name"], "user_id": new_user.id, "address": data["address"], "zipcode": data["zipcode"], "role": data["role"] }
 
   profile = Profile(**profile_data)
   db.session.add(profile)
