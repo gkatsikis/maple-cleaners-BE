@@ -18,14 +18,14 @@ def login_required(f):
         return f(*args, **kwargs)
     return decorated_function
 
-def admin_required(f):
-  @wraps(f)
-  def decorated_function(*args, **kwargs):
-    token = request.headers['Authorization'].split(' ')[1]
-    if token != 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJuYW1lIjoiYWRtaW4iLCJpZCI6NH0.h6LJTbyFaXLI6nD51jYh1OHE6YsIKnvWPa_5KwKWWKM':
-      return 'Admin Access Only'
-    return f(*args, **kwargs)
-  return decorated_function
+# def admin_required(f):
+#   @wraps(f)
+#   def decorated_function(*args, **kwargs):
+#     token = request.headers['Authorization'].split(' ')[1]
+#     if token != 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJuYW1lIjoiYWRtaW4iLCJpZCI6NH0.h6LJTbyFaXLI6nD51jYh1OHE6YsIKnvWPa_5KwKWWKM':
+#       return 'Admin Access Only'
+#     return f(*args, **kwargs)
+#   return decorated_function
 
 def create_token(payload):
   return jwt.encode(payload, SECRET_KEY, algorithm='HS256')
