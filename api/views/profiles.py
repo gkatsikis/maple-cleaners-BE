@@ -1,5 +1,5 @@
 from flask import Blueprint, jsonify, request
-from api.middleware import admin_required, login_required
+from api.middleware import login_required
 
 from api.models.db import db
 from api.models.profile import Profile
