@@ -12,6 +12,7 @@ def create_order():
   data = request.get_json()
   profile = read_token(request)
   data["profile_id"] = profile["id"]
+
   order = Order(**data)
   db.session.add(order)
   db.session.commit()

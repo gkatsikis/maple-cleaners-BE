@@ -17,3 +17,5 @@ class Profile(db.Model):
     def serialize(self):
       profile = {c.name: getattr(self, c.name) for c in self.__table__.columns}
       return profile
+
+# want to have order associated, however I do associate orders to model

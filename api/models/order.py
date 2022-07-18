@@ -14,3 +14,4 @@ class Order(db.Model):
   def serialize(self):
       order = {c.name: getattr(self, c.name) for c in self.__table__.columns}
       return order
+
