@@ -9,6 +9,7 @@ class Order(db.Model):
   cost = db.Column(db.Float, default=0.00)
   date = db.Column(db.Date, default=datetime.utcnow, nullable=False)
   comments = db.Column(db.String(250), default='no comment')
+  status = db.Column(db.String(10), default='pending')
 
   def serialize(self):
       order = {c.name: getattr(self, c.name) for c in self.__table__.columns}
