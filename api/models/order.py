@@ -7,8 +7,7 @@ class Order(db.Model):
   profile_id = db.Column(db.Integer, db.ForeignKey('profiles.id'), nullable=False)
   created_at = db.Column(db.DateTime, default=datetime.utcnow)
   cost = db.Column(db.Float, default=0.00)
-  date = db.Column(db.Date, default=datetime.date, nullable=False)
-  time = db.Column(db.Time, default=datetime.time)
+  date = db.Column(db.Date, default=datetime.utcnow, nullable=False)
   comments = db.Column(db.String(250), default='no comment')
 
   def serialize(self):
