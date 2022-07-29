@@ -10,7 +10,7 @@ class Profile(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
     balance = db.Column(db.Float, default=0.00)
-    role = db.Column(db.String(100), default='customer')
+    role = db.Column(db.String(100), default='customer') #
     
     orders = db.relationship('Order', backref='profile', lazy=True)
 
