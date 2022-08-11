@@ -38,9 +38,6 @@ def update_order(id):
   profile = read_token(request)
   order = Order.query.filter_by(id=id).first()
 
-  if order.profile_id != profile["id"]:
-    return 'Forbidden', 403
-
   for key in data:
     setattr(order, key, data[key])
 
